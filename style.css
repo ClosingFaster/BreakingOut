@@ -1,0 +1,66 @@
+body {
+  font-family: "Georgia", serif;
+  margin: 0 auto;
+  max-width: 800px;
+  background: #fff;
+  color: #000;
+}
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 800px;
+  background: #2ecc71;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tabs a {
+  color: #fff;
+  margin: 0 15px;
+  text-decoration: none;
+}
+.tabs a:hover {
+  text-decoration: underline;
+}
+.content {
+  margin-top: 80px;
+  padding: 20px;
+}
+.box {
+  border: 1px solid #2ecc71;
+  padding: 15px;
+  margin: 10px 0;
+}
+.content a {
+  color: #2ecc71;
+  text-decoration: none;
+}
+.footer {
+  padding: 15px;
+  text-align: center;
+  border-top: 1px solid #2ecc71;
+  margin-top: 30px;
+}
+.footer a {
+  color: #2ecc71;
+  text-decoration: none;
+}
+.user1 {
+  color: #2ecc71;
+  font-weight: bold;
+}
+.user2 {
+  color: #555;
+  font-weight: bold;
+}
+hr {
+  border: 0;
+  border-top: 2px solid #2ecc71;
+  opacity: 0.3;
+  margin: 10px 0;
+}
