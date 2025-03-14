@@ -3,7 +3,7 @@
     <title>Project Breaking Out</title>
     <link rel="stylesheet" href="style.css">
   </head>
-  <body>
+  <body class="dark-mode">
     <div class="header">
       <span>Project Breaking Out</span>
       <div class="tabs">
@@ -12,12 +12,12 @@
         <a href="#" onclick="swapForum('about')">About Us</a>
         <a href="#" onclick="swapForum('faq')">FAQ</a>
         <a href="#" onclick="swapForum('plans')">Plans</a>
+        <button id="mode-toggle" onclick="toggleMode()">Light Mode</button>
       </div>
     </div>
     <div class="content">
       <div class="box">
-        <p id="forum-text">Imagine a place where homes grow from trees—living spaces shaped by nature, not concrete. We’re building a community near Perth, free from government overreach, where people come together to share, create, and thrive. Join us via <a href="https://www.patreon.com/c/user?u=5460451">Patreon</a> to help turn this vision into reality.<br><br>It starts with land, a few hectares to plant the seeds—literally. With tree-grown homes and worm-powered cycles, we’re crafting a self-sustaining loop that keeps growing, open to anyone ready to step away from the system and into something real.</p>
-        <p><a href="https://tawk.to/chat/[HIS_CHAT_ID]/default">Chat Now</a></p>
+        <p id="forum-text">Imagine a place where homes grow from trees—living spaces shaped by nature, not concrete. We’re building a community near Perth, free from government overreach, where people come together to share, create, and thrive. Join us via <a href="https://www.patreon.com/c/user?u=5460451">Patreon</a> to help turn this vision into reality.<br><br>It starts with land, a few hectares to plant the seeds—literally. With tree-grown homes and worm-powered cycles, we’re crafting a self-sustaining loop that keeps growing, open to anyone ready to step away from the system and into something real. We’ve got 6 AUD—every dollar gets us closer to land!</p>
       </div>
     </div>
     <div class="footer">
@@ -32,10 +32,10 @@
     <script>
       function swapForum(page) {
         var text = document.getElementById("forum-text");
-        if (page === "home") text.innerHTML = "Imagine a place where homes grow from trees—living spaces shaped by nature, not concrete. We’re building a community near Perth, free from government overreach, where people come together to share, create, and thrive. Join us via <a href=\"https://www.patreon.com/c/user?u=5460451\">Patreon</a> to help turn this vision into reality.<br><br>It starts with land, a few hectares to plant the seeds—literally. With tree-grown homes and worm-powered cycles, we’re crafting a self-sustaining loop that keeps growing, open to anyone ready to step away from the system and into something real.";
-        if (page === "forums") text.innerHTML = "Forums: Pick a chat!<br><br><a href=\"#\" onclick=\"swapChat('general'); return false;\">General</a> | <a href=\"#\" onclick=\"swapChat('trees'); return false;\">Tree Talk</a> | <a href=\"#\" onclick=\"swapChat('worms'); return false;\">Worm Crew</a><br><br><div id=\"chat-area\">Click a forum above to start!</div>";
+        if (page === "home") text.innerHTML = "Imagine a place where homes grow from trees—living spaces shaped by nature, not concrete. We’re building a community near Perth, free from government overreach, where people come together to share, create, and thrive. Join us via <a href=\"https://www.patreon.com/c/user?u=5460451\">Patreon</a> to help turn this vision into reality.<br><br>It starts with land, a few hectares to plant the seeds—literally. With tree-grown homes and worm-powered cycles, we’re crafting a self-sustaining loop that keeps growing, open to anyone ready to step away from the system and into something real. We’ve got 6 AUD—every dollar gets us closer to land!";
+        if (page === "forums") text.innerHTML = "Forums: Share ideas here!<br><br><a href=\"#\" onclick=\"swapChat('general'); return false;\">General</a> | <a href=\"#\" onclick=\"swapChat('trees'); return false;\">Tree Talk</a> | <a href=\"#\" onclick=\"swapChat('worms'); return false;\">Worm Crew</a><br><br><div id=\"chat-area\">Click a forum above to start!</div><br><div id=\"live-chat\"><strong>Live Chat:</strong><br><div class=\"chat-widget\"></div><br><input type=\"text\" id=\"chat-input\" placeholder=\"Type a message...\"><button onclick=\"sendMessage()\">Send</button></div>";
         if (page === "about") text.innerHTML = "About Us: A team building a free future with nature—no bosses, no gov, just us.";
-        if (page === "faq") text.innerHTML = "FAQ: Got questions? Why trees? Why no gov? Answers coming—chat for now!";
+        if (page === "faq") text.innerHTML = "FAQ: Got questions? Why trees? Why no gov? Answers coming—chat in Forums!";
         if (page === "plans") text.innerHTML = "Plans: Land near Perth, tree homes, worm-powered cycles—fund it with us.";
       }
       function swapChat(chat) {
@@ -43,6 +43,21 @@
         if (chat === "general") area.innerHTML = "<span class=\"user1\">User1:</span> Hey, anyone in Perth?<hr><span class=\"user2\">User2:</span> Yep, near the hills!<hr><span class=\"user1\">User1:</span> Cool, let’s talk land.<hr><span class=\"user2\">User2:</span> I’m in—where we starting?<hr><span class=\"user1\">User1:</span> Gotta fund it first!";
         if (chat === "trees") area.innerHTML = "<span class=\"user1\">User1:</span> Trees take years, right?<hr><span class=\"user2\">User2:</span> Yeah, but small ones work fast.<hr><span class=\"user1\">User1:</span> What’s best for Perth?<hr><span class=\"user2\">User2:</span> Eucs maybe—tough stuff.<hr><span class=\"user1\">User1:</span> Research time!";
         if (chat === "worms") area.innerHTML = "<span class=\"user2\">User2:</span> Worms are the future.<hr><span class=\"user1\">User1:</span> Composting’s unreal with ‘em.<hr><span class=\"user2\">User2:</span> How many to kick off?<hr><span class=\"user1\">User1:</span> Just a handful—easy.";
+      }
+      function sendMessage() {
+        var input = document.getElementById("chat-input");
+        var message = input.value.trim();
+        if (message) {
+          var area = document.getElementById("chat-area");
+          area.innerHTML += "<hr><span class=\"user1\">User1:</span> " + message;
+          input.value = ""; // Clear input
+          area.scrollTop = area.scrollHeight; // Auto-scroll to bottom
+        }
+      }
+      function toggleMode() {
+        document.body.classList.toggle("dark-mode");
+        var button = document.getElementById("mode-toggle");
+        button.textContent = document.body.classList.contains("dark-mode") ? "Light Mode" : "Dark Mode";
       }
     </script>
   </body>
