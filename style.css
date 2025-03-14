@@ -4,6 +4,7 @@ body {
   max-width: 800px;
   background: #fff;
   color: #000;
+  transition: background 0.3s, color 0.3s;
 }
 .header {
   position: fixed;
@@ -18,6 +19,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: background 0.3s, color 0.3s;
+}
+.tabs {
+  display: flex;
+  align-items: center;
 }
 .tabs a {
   color: #fff;
@@ -27,6 +33,18 @@ body {
 .tabs a:hover {
   text-decoration: underline;
 }
+#mode-toggle {
+  background: #fff;
+  color: #2ecc71;
+  border: 1px solid #2ecc71;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s, color 0.3s;
+}
+#mode-toggle:hover {
+  background: #f0f0f0;
+}
 .content {
   margin-top: 80px;
   padding: 20px;
@@ -35,6 +53,9 @@ body {
   border: 1px solid #2ecc71;
   padding: 15px;
   margin: 10px 0;
+  background: #fff;
+  border-radius: 5px;
+  transition: background 0.3s;
 }
 .content a {
   color: #2ecc71;
@@ -45,6 +66,8 @@ body {
   text-align: center;
   border-top: 1px solid #2ecc71;
   margin-top: 30px;
+  color: #000;
+  transition: color 0.3s;
 }
 .footer a {
   color: #2ecc71;
@@ -57,10 +80,91 @@ body {
 .user2 {
   color: #555;
   font-weight: bold;
+  transition: color 0.3s;
 }
 hr {
   border: 0;
   border-top: 2px solid #2ecc71;
   opacity: 0.3;
   margin: 10px 0;
+}
+#chat-area {
+  padding: 15px;
+  border: 1px dashed #2ecc71;
+  background: #fff;
+  border-radius: 5px;
+  transition: background 0.3s;
+  max-height: 200px; /* Limit height */
+  overflow-y: auto; /* Scroll if needed */
+}
+#live-chat {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #2ecc71;
+  background: #fff;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+.chat-widget {
+  margin-top: 10px;
+}
+#chat-input {
+  width: 70%;
+  padding: 5px;
+  margin-top: 10px;
+  border: 1px solid #2ecc71;
+  border-radius: 5px;
+  background: #fff;
+  color: #000;
+  transition: background 0.3s, color 0.3s;
+}
+#live-chat button {
+  padding: 5px 10px;
+  margin-left: 10px;
+  background: #2ecc71;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#live-chat button:hover {
+  background: #28a65f;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background: #1a1a1a;
+  color: #e0e0e0;
+}
+body.dark-mode .header {
+  background: #1a1a1a;
+  border-bottom: 1px solid #2ecc71;
+}
+body.dark-mode .box {
+  background: #2a2a2a;
+}
+body.dark-mode .footer {
+  color: #e0e0e0;
+}
+body.dark-mode .user2 {
+  color: #b0b0b0;
+}
+body.dark-mode #chat-area {
+  background: #333333;
+}
+body.dark-mode #live-chat {
+  background: #2a2a2a;
+}
+body.dark-mode #mode-toggle {
+  background: #2ecc71;
+  color: #fff;
+}
+body.dark-mode #mode-toggle:hover {
+  background: #28a65f;
+}
+body.dark-mode #chat-input {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #2ecc71;
 }
