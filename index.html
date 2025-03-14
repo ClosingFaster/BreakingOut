@@ -4,72 +4,169 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body class="dark-mode">
-    <div class="header">
-      <span><a href="#" onclick="swapForum('home')" class="header-link">Project Breaking Out</a></span>
-      <div class="tabs">
-        <a href="#" onclick="swapForum('home')">Home</a>
-        <a href="#" onclick="swapForum('forums')">Forums</a>
-        <a href="#" onclick="swapForum('about')">About Us</a>
-        <a href="#" onclick="swapForum('faq')">FAQ</a>
-        <a href="#" onclick="swapForum('plans')">Plans</a>
-        <button id="mode-toggle" onclick="toggleMode()">L</button>
-        <div class="login-section">
-          <input type="text" id="username" placeholder="Username">
-          <input type="password" id="password" placeholder="Password" onfocus="showLoginButtons()" onblur="hideLoginButtons()">
-          <div class="login-buttons">
-            <button id="submit-login" onclick="submitLogin()">Submit</button>
-            <button id="reset-password" onclick="resetPassword()">Reset Password</button>
+    <div class="container">
+      <div class="header">
+        <span><a href="#" onclick="swapForum('home')" class="header-link">Project Breaking Out</a></span>
+        <div class="tabs">
+          <a href="#" onclick="swapForum('home')">Home</a>
+          <a href="#" onclick="swapForum('forums')">Forums</a>
+          <a href="#" onclick="swapForum('about')">About Us</a>
+          <a href="#" onclick="swapForum('faq')">FAQ</a>
+          <a href="#" onclick="swapForum('plans')">Plans</a>
+          <button id="mode-toggle" onclick="toggleMode()">L</button>
+          <div class="login-section">
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password" onfocus="showLoginButtons()" onblur="hideLoginButtons()">
+            <div class="login-buttons">
+              <button id="submit-login" onclick="submitLogin()">Submit</button>
+              <button id="reset-password" onclick="resetPassword()">Reset Password</button>
+            </div>
+            <div id="profile-box" style="display: none;"></div>
           </div>
-          <div id="profile-box" style="display: none;"></div>
         </div>
       </div>
-    </div>
-    <div class="content">
-      <div class="box">
-        <p id="forum-text">Imagine a place where homes grow from trees—living spaces shaped by nature, not concrete. We’re building a community near Perth, free from government overreach, where people come together to share, create, and thrive. Join us via <a href="https://www.patreon.com/c/user?u=5460451">Patreon</a> to help turn this vision into reality.<br><br>It starts with land, a few hectares to plant the seeds—literally. With tree-grown homes and worm-powered cycles, we’re crafting a self-sustaining loop that keeps growing, open to anyone ready to step away from the system and into something real. We’ve got 6 AUD—every dollar gets us closer to land!</p>
+      <div class="content">
+        <div class="box">
+          <p id="forum-text">Imagine a place where homes grow from trees—living spaces shaped by nature, not concrete. We’re building a community near Perth, free from government overreach, where people come together to share, create, and thrive. Join us via <a href="https://www.patreon.com/c/user?u=5460451">Patreon</a> to help turn this vision into reality.<br><br>It starts with land, a few hectares to plant the seeds—literally. With tree-grown homes and worm-powered cycles, we’re crafting a self-sustaining loop that keeps growing, open to anyone ready to step away from the system and into something real. We’ve got 6 AUD—every dollar gets us closer to land!</p>
+        </div>
       </div>
-    </div>
-    <div class="footer">
-      <p>
-        Project Breaking Out | 
-        <a href="https://www.patreon.com/c/user?u=5460451">Patreon</a> | 
-        <a href="https://virtualworms.com">Worms</a> | 
-        Chip in: <a href="https://paypal.me/[HIS_PAYPAL_EMAIL]">Donate $1-$5</a>
-      </p>
+      <div class="footer">
+        <p>
+          Project Breaking Out | 
+          <a href="https://www.patreon.com/c/user?u=5460451">Patreon</a> | 
+          <a href="https://virtualworms.com">Worms</a> | 
+          Chip in: <a href="https://paypal.me/[HIS_PAYPAL_EMAIL]">Donate $1-$5</a>
+        </p>
+      </div>
     </div>
     <script src="https://embed.tawk.to/[HIS_CHAT_ID]/default" async></script>
     <script>
       let isSubmitting = false;
+      let currentCategory = 'general';
+      let currentPage = 1;
+      const messagesPerPage = 8;
+      const forumMessages = {
+        general: [
+          "User1: Hey, anyone in Perth?",
+          "User2: Yep, near the hills!",
+          "User1: Cool, let’s talk land.",
+          "User2: I’m in—where we starting?",
+          "User1: Gotta fund it first!",
+          "User3: I can chip in a bit.",
+          "User2: Great, let’s plan!",
+          "User1: How about next month?",
+          "User4: Sounds good, location?",
+          "User3: Near the coast maybe?",
+          "User2: Need more funds first.",
+          "User1: Let’s start a fundraiser!",
+          "User5: I’ll promote it!",
+          "User4: Count me in too!",
+          "User3: Target $500?",
+          "User2: Yes, let’s do it!",
+          "User1: Awesome, team effort!",
+          "User6: Can’t wait to join!"
+        ],
+        trees: [
+          "User1: Trees take years, right?",
+          "User2: Yeah, but small ones work fast.",
+          "User1: What’s best for Perth?",
+          "User2: Eucs maybe—tough stuff.",
+          "User1: Research time!",
+          "User3: Let’s try natives too.",
+          "User2: Good idea, less water.",
+          "User1: How long to grow?",
+          "User4: 5-10 years for shade.",
+          "User3: Soil prep is key.",
+          "User2: Compost can help!",
+          "User1: Worms for that?",
+          "User5: Yes, natural boost!",
+          "User4: Need a plan first.",
+          "User3: Start small patches?",
+          "User2: Agreed, test it!",
+          "User1: Let’s experiment!",
+          "User6: Excited to see results!"
+        ],
+        worms: [
+          "User2: Worms are the future.",
+          "User1: Composting’s unreal with ‘em.",
+          "User2: How many to kick off?",
+          "User1: Just a handful—easy.",
+          "User3: Need a bin setup.",
+          "User2: DIY or buy?",
+          "User1: DIY saves cash.",
+          "User4: Wood or plastic?",
+          "User3: Wood breathes better.",
+          "User2: Good point, let’s build!",
+          "User1: Add some scraps.",
+          "User5: Fruit works well.",
+          "User4: Avoid citrus though.",
+          "User3: Balance is key.",
+          "User2: Weekly check?",
+          "User1: Yes, monitor it!",
+          "User6: Can’t wait to try!",
+          "User5: Let’s share results!"
+        ]
+      };
 
       function swapForum(page) {
         var text = document.getElementById("forum-text");
         if (page === "home") text.innerHTML = "Imagine a place where homes grow from trees—living spaces shaped by nature, not concrete. We’re building a community near Perth, free from government overreach, where people come together to share, create, and thrive. Join us via <a href=\"https://www.patreon.com/c/user?u=5460451\">Patreon</a> to help turn this vision into reality.<br><br>It starts with land, a few hectares to plant the seeds—literally. With tree-grown homes and worm-powered cycles, we’re crafting a self-sustaining loop that keeps growing, open to anyone ready to step away from the system and into something real. We’ve got 6 AUD—every dollar gets us closer to land!";
-        if (page === "forums") text.innerHTML = "Forums: Share ideas here!<br><br><a href=\"#\" onclick=\"swapChat('general'); return false;\">General</a> | <a href=\"#\" onclick=\"swapChat('trees'); return false;\">Tree Talk</a> | <a href=\"#\" onclick=\"swapChat('worms'); return false;\">Worm Crew</a><br><br><div id=\"chat-area\">Click a forum above to start!</div><br><div id=\"live-chat\"><strong>Live Chat:</strong><br><div class=\"chat-widget\"></div><br><input type=\"text\" id=\"chat-input\" placeholder=\"Type a message...\"><button onclick=\"sendMessage()\">Send</button></div>";
+        if (page === "forums") text.innerHTML = "Forums: Share ideas here!<br><br><a href=\"#\" onclick=\"swapChat('general'); return false;\">General</a> | <a href=\"#\" onclick=\"swapChat('trees'); return false;\">Tree Talk</a> | <a href=\"#\" onclick=\"swapChat('worms'); return false;\">Worm Crew</a><br><br><div id=\"chat-area\"></div><br><div id=\"live-chat\"><strong>Live Chat:</strong><br><div class=\"chat-widget\"></div><br><input type=\"text\" id=\"chat-input\" placeholder=\"Type a message...\"><button onclick=\"sendMessage()\">Send</button><div id=\"pagination\"></div></div>";
         if (page === "about") text.innerHTML = "About Us: A team building a free future with nature—no bosses, no gov, just us.";
         if (page === "faq") text.innerHTML = "FAQ: Got questions? Why trees? Why no gov? Answers coming—chat in Forums!";
         if (page === "plans") text.innerHTML = "Plans: Land near Perth, tree homes, worm-powered cycles—fund it with us.";
+        if (page === "forums") swapChat(currentCategory);
       }
+
       function swapChat(chat) {
-        var area = document.getElementById("chat-area");
-        if (chat === "general") area.innerHTML = "<span class=\"user1\">User1:</span> Hey, anyone in Perth?<hr><span class=\"user2\">User2:</span> Yep, near the hills!<hr><span class=\"user1\">User1:</span> Cool, let’s talk land.<hr><span class=\"user2\">User2:</span> I’m in—where we starting?<hr><span class=\"user1\">User1:</span> Gotta fund it first!";
-        if (chat === "trees") area.innerHTML = "<span class=\"user1\">User1:</span> Trees take years, right?<hr><span class=\"user2\">User2:</span> Yeah, but small ones work fast.<hr><span class=\"user1\">User1:</span> What’s best for Perth?<hr><span class=\"user2\">User2:</span> Eucs maybe—tough stuff.<hr><span class=\"user1\">User1:</span> Research time!";
-        if (chat === "worms") area.innerHTML = "<span class=\"user2\">User2:</span> Worms are the future.<hr><span class=\"user1\">User1:</span> Composting’s unreal with ‘em.<hr><span class=\"user2\">User2:</span> How many to kick off?<hr><span class=\"user1\">User1:</span> Just a handful—easy.";
+        currentCategory = chat;
+        currentPage = 1;
+        displayMessages();
       }
+
+      function displayMessages() {
+        const chatArea = document.getElementById("chat-area");
+        const pagination = document.getElementById("pagination");
+        const messages = forumMessages[currentCategory];
+        const totalPages = Math.ceil(messages.length / messagesPerPage);
+        const start = (currentPage - 1) * messagesPerPage;
+        const end = start + messagesPerPage;
+        const paginatedMessages = messages.slice(start, end);
+
+        chatArea.innerHTML = paginatedMessages.map(msg => `<span class="${msg.startsWith('User1') ? 'user1' : 'user2'}">${msg}</span><hr>`).join('');
+        pagination.innerHTML = `
+          <button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>
+          <span>Page ${currentPage} of ${totalPages}</span>
+          <button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>
+        `;
+      }
+
+      function changePage(newPage) {
+        const messages = forumMessages[currentCategory];
+        const totalPages = Math.ceil(messages.length / messagesPerPage);
+        if (newPage >= 1 && newPage <= totalPages) {
+          currentPage = newPage;
+          displayMessages();
+        }
+      }
+
       function sendMessage() {
         var input = document.getElementById("chat-input");
         var message = input.value.trim();
         if (message) {
           var area = document.getElementById("chat-area");
-          area.innerHTML += "<hr><span class=\"user1\">You:</span> " + message;
+          area.innerHTML += `<hr><span class="user1">You: ${message}</span>`;
           input.value = "";
           area.scrollTop = area.scrollHeight;
         }
       }
+
       function toggleMode() {
         document.body.classList.toggle("dark-mode");
         var button = document.getElementById("mode-toggle");
         button.textContent = document.body.classList.contains("dark-mode") ? "L" : "D";
       }
+
       function submitLogin() {
         isSubmitting = true;
         var username = document.getElementById("username").value.trim();
@@ -91,17 +188,20 @@
         }
         isSubmitting = false;
       }
+
       function resetPassword() {
         isSubmitting = true;
         alert("Reset Password feature coming soon!");
         isSubmitting = false;
       }
+
       function showLoginButtons() {
         var loginButtons = document.querySelector(".login-buttons");
         if (loginButtons && loginButtons.style.display !== "flex") {
           loginButtons.style.display = "flex";
         }
       }
+
       function hideLoginButtons() {
         if (isSubmitting) return;
         setTimeout(() => {
