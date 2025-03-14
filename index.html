@@ -5,14 +5,23 @@
   </head>
   <body class="dark-mode">
     <div class="header">
-      <span>Project Breaking Out</span>
+      <span><a href="#" onclick="swapForum('home')" class="header-link">Project Breaking Out</a></span>
       <div class="tabs">
         <a href="#" onclick="swapForum('home')">Home</a>
         <a href="#" onclick="swapForum('forums')">Forums</a>
         <a href="#" onclick="swapForum('about')">About Us</a>
         <a href="#" onclick="swapForum('faq')">FAQ</a>
         <a href="#" onclick="swapForum('plans')">Plans</a>
-        <button id="mode-toggle" onclick="toggleMode()">Light Mode</button>
+        <button id="mode-toggle" onclick="toggleMode()">L</button>
+        <div class="login-section">
+          <input type="text" id="username" placeholder="Username">
+          <input type="password" id="password" placeholder="Password" onfocus="showLoginButtons()" onblur="hideLoginButtons()">
+          <div class="login-buttons">
+            <button id="submit-login" onclick="submitLogin()">Submit</button>
+            <button id="reset-password" onclick="resetPassword()">Reset Password</button>
+          </div>
+          <div id="profile-box" style="display: none;"></div>
+        </div>
       </div>
     </div>
     <div class="content">
@@ -30,6 +39,8 @@
     </div>
     <script src="https://embed.tawk.to/[HIS_CHAT_ID]/default" async></script>
     <script>
+      let isSubmitting = false;
+
       function swapForum(page) {
         var text = document.getElementById("forum-text");
         if (page === "home") text.innerHTML = "Imagine a place where homes grow from trees—living spaces shaped by nature, not concrete. We’re building a community near Perth, free from government overreach, where people come together to share, create, and thrive. Join us via <a href=\"https://www.patreon.com/c/user?u=5460451\">Patreon</a> to help turn this vision into reality.<br><br>It starts with land, a few hectares to plant the seeds—literally. With tree-grown homes and worm-powered cycles, we’re crafting a self-sustaining loop that keeps growing, open to anyone ready to step away from the system and into something real. We’ve got 6 AUD—every dollar gets us closer to land!";
@@ -49,15 +60,57 @@
         var message = input.value.trim();
         if (message) {
           var area = document.getElementById("chat-area");
-          area.innerHTML += "<hr><span class=\"user1\">User1:</span> " + message;
-          input.value = ""; // Clear input
-          area.scrollTop = area.scrollHeight; // Auto-scroll to bottom
+          area.innerHTML += "<hr><span class=\"user1\">You:</span> " + message;
+          input.value = "";
+          area.scrollTop = area.scrollHeight;
         }
       }
       function toggleMode() {
         document.body.classList.toggle("dark-mode");
         var button = document.getElementById("mode-toggle");
-        button.textContent = document.body.classList.contains("dark-mode") ? "Light Mode" : "Dark Mode";
+        button.textContent = document.body.classList.contains("dark-mode") ? "L" : "D";
+      }
+      function submitLogin() {
+        isSubmitting = true;
+        var username = document.getElementById("username").value.trim();
+        var password = document.getElementById("password").value.trim();
+        if (username && password) {
+          alert("username: " + username + "\npassword: " + password);
+          if (password === "1234") {
+            document.getElementById("username").style.display = "none";
+            document.getElementById("password").style.display = "none";
+            document.querySelector(".login-buttons").style.display = "none";
+            var profileBox = document.getElementById("profile-box");
+            profileBox.style.display = "block";
+            profileBox.textContent = username.charAt(0).toUpperCase();
+          } else {
+            alert("Incorrect password. (Hint: Try '1234')");
+          }
+        } else {
+          alert("Please enter both username and password.");
+        }
+        isSubmitting = false;
+      }
+      function resetPassword() {
+        isSubmitting = true;
+        alert("Reset Password feature coming soon!");
+        isSubmitting = false;
+      }
+      function showLoginButtons() {
+        var loginButtons = document.querySelector(".login-buttons");
+        if (loginButtons && loginButtons.style.display !== "flex") {
+          loginButtons.style.display = "flex";
+        }
+      }
+      function hideLoginButtons() {
+        if (isSubmitting) return;
+        setTimeout(() => {
+          if (isSubmitting) return;
+          var loginButtons = document.querySelector(".login-buttons");
+          if (loginButtons && loginButtons.style.display === "flex") {
+            loginButtons.style.display = "none";
+          }
+        }, 200);
       }
     </script>
   </body>
